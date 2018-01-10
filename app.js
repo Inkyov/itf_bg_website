@@ -1,10 +1,17 @@
 import express from 'express';
-import router from './server';
-
+import models from './src/data/models';
 const app = express();
 
-app.use('/', router);
+app.get('/clubs', function (req, res, next) {
+  models.Club.findAll()
+    .then(function (data) {
+      res.status(200)
+        .json({
+          data: data
+        })
+    })
+})
 
-app.listen(3000);
-
-console.log(`running on 3000`);
+app.listen(3000, function() {
+  console.log(`running on 3000`);
+});
